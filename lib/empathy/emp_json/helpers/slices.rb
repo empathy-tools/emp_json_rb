@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Empathy
-  module Model
+  module EmpJson
     module Helpers
       # Additional functions for working with slices
       module Slices
