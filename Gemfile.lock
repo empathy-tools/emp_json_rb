@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    emp-json-rb (1.0.0)
+    emp-json (1.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -50,7 +50,7 @@ PLATFORMS
 DEPENDENCIES
   activemodel (~> 7)
   activesupport (~> 7)
-  emp-json-rb!
+  emp-json!
   minitest (~> 5.0)
   rake (~> 13.0)
   rdf

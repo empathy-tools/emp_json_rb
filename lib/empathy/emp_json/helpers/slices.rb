@@ -5,6 +5,15 @@ module Empathy
     module Helpers
       # Additional functions for working with slices
       module Slices
+        # Retrieves all values for the given [field].
+        def all_values_from_slice(slice, field, website_iri = nil)
+          slice
+            .values
+            .flat_map { |record| field_from_record(record, field) }
+            .map { |values| normalise_slice_values(values) }
+            .compact
+        end
+
         # Returns a normalised fields array for a record from a slice.
         def values_from_slice(slice, id, field, website_iri = nil)
           values = field_from_slice(slice, id, field, website_iri)
@@ -39,6 +48,10 @@ module Empathy
           return id.to_s.delete_prefix(website_iri) if website_iri.present?
 
           id.to_s
+        end
+
+        def normalise_slice_values(values)
+          values.is_a?(Array) ? values.map(&:with_indifferent_access) : values&.with_indifferent_access
         end
 
         def expand(slice, website_iri = current_tenant)
