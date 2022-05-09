@@ -1,8 +1,6 @@
 # Empathy::Json
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/emp/json/rb`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A gem to serialize and manipulate [EmpJson](https://empathy.tools/specifications/emp-json) slices.
 
 ## Installation
 
@@ -16,7 +14,9 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-TODO: Write usage instructions here
+The module was built to work with [rdf-serializers](https://github.com/ontola/rdf-serializers), and uses serializer descriptions from that gem.
+
+Include the `Empathy::Json::Slices` module and call `emp_json_hash(resource)` for a hash representation or `render_emp_json(resource)` for a stringified version.
 
 ## Development
 
