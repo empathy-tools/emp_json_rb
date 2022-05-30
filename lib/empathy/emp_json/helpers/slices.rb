@@ -31,17 +31,17 @@ module Empathy
 
         # Returns a record from a slice.
         def record_from_slice(slice, id, website_iri = nil)
-          slice[retrieve_id(id, website_iri)]
+          slice[absolutized_id(retrieve_id(id), website_iri)] || slice[retrieve_id(id)]
         end
 
         def field_from_record(record, field)
           field = URI(field.to_s)
           symbolized = (field.fragment || field.path.split("/").last).camelize(:lower)
-          (record[field] || record[symbolized])&.compact
+          (record[field.to_s] || record[symbolized])&.compact
         end
 
-        def retrieve_id(id, website_iri = nil)
-          absolutized_id(id.try(:iri) || id, website_iri)
+        def retrieve_id(id)
+          id.try(:iri) || id
         end
 
         def absolutized_id(id, website_iri = nil)
