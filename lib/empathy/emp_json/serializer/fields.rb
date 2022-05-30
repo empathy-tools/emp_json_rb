@@ -92,6 +92,7 @@ module Empathy
         end
 
         def predicate_to_symbol(attr)
+          return attr.predicate unless symbolize
           return uri_to_symbol(attr.predicate, symbolize) if attr.predicate.present?
 
           attr.key

@@ -18,14 +18,14 @@ module Empathy
         def process_sequence_members(serializer, slice, resource, rid, serialization_params, **options) # rubocop:disable Metrics/ParameterLists
           nested = []
           resource.members.each_with_index.map do |m, i|
-            process_sequence_member(m, i, serializer, slice, resource, rid, serialization_params)
+            process_sequence_member(m, i, nested, serializer, slice, resource, rid, serialization_params)
           end
           nested.each do |r|
             resource_to_emp_json(slice, serialization_params, resource: r, includes: options[:includes])
           end
         end
 
-        def process_sequence_member(member, index, serializer, slice, resource, rid, serialization_params) # rubocop:disable Metrics/ParameterLists
+        def process_sequence_member(member, index, nested, serializer, slice, resource, rid, serialization_params) # rubocop:disable Metrics/ParameterLists
           index_predicate = serializer.relationships_to_serialize[:members].predicate
           symbol = uri_to_symbol(index_predicate.call(self, index), symbolize)
           slice[rid][symbol] = value_to_emp_value(member)
