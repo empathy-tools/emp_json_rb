@@ -4,7 +4,6 @@ require "test_helper"
 require "active_model"
 require "active_support/core_ext/time"
 require "active_support/time_with_zone"
-require "empathy/emp_json/primitives"
 require "rdf/model/value"
 require "rdf/model/term"
 require "rdf/model/resource"
@@ -17,7 +16,7 @@ require_relative "../../../test/lib/linked_rails/sequence"
 module Empathy
   module EmpJson
     class PrimitivesTest < Minitest::Test # rubocop:disable Metrics/ClassLength
-      include ::Empathy::EmpJson::Primitives
+      include Empathy::EmpJson::Helpers::Primitives
 
       class ClassValue; end
 
