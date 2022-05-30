@@ -6,7 +6,7 @@ module Empathy
       # Additional functions for working with slices
       module Slices
         # Retrieves all values for the given [field].
-        def all_values_from_slice(slice, field, website_iri = nil)
+        def all_values_from_slice(slice, field, _website_iri = nil)
           slice
             .values
             .flat_map { |record| field_from_record(record, field) }
