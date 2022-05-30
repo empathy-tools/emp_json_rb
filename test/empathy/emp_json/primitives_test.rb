@@ -18,7 +18,7 @@ module Empathy
     class PrimitivesTest < Minitest::Test # rubocop:disable Metrics/ClassLength
       include Empathy::EmpJson::Helpers::Primitives
 
-      class ClassValue; end
+      class ClassValue; end # rubocop:disable Lint/EmptyClass
 
       class ClassWithIri
         class << self

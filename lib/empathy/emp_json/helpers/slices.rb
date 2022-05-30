@@ -22,7 +22,7 @@ module Empathy
 
           unless slice_includes_record?(slice, resource)
             slice[value[:v]] = {
-              "_id": value
+              _id: value
             }
           end
 
