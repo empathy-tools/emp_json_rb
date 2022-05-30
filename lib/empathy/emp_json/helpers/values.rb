@@ -37,9 +37,9 @@ module Empathy
         end
 
         def value_to_emp_value(value)
+          return object_to_value(value) if value.nil?
+
           case value
-          when nil
-            object_to_value(value)
           when SUPPORTS_SEQUENCE ? LinkedRails::Sequence : nil
             object_to_value(value.iri)
           when SUPPORTS_RDF_RB ? RDF::List : nil
