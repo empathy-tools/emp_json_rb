@@ -5,8 +5,6 @@ module Empathy
     module Helpers
       # Functions relating to adding values to records
       module Values
-        include Helpers::Constants
-
         def add_attribute_to_record(slice, rid, key, value, symbolize)
           return if value.nil?
 
@@ -25,7 +23,7 @@ module Empathy
         end
 
         def wrap_relation_in_sequence(value, resource)
-          SEQUENCE_CLASS.new(
+          LinkedRails::Sequence.new(
             value.is_a?(Array) ? value : [value],
             parent: resource,
             scope: false
@@ -42,11 +40,11 @@ module Empathy
           case value
           when nil
             object_to_value(value)
-          when SEQUENCE_CLASS
+          when SUPPORTS_SEQUENCE ? LinkedRails::Sequence : nil
             object_to_value(value.iri)
-          when LIST_CLASS
+          when SUPPORTS_RDF_RB ? RDF::List : nil
             object_to_value(value.subject)
-          when Array, *AR_ASSOCIATION_CLASSES
+          when Array, *(SUPPORTS_AR ? [ActiveRecord::Associations::CollectionProxy, ActiveRecord::Relation] : [])
             value.map { |v| object_to_value(v) }.compact
           else
             object_to_value(value)

@@ -12,7 +12,6 @@ module Empathy
     module Serializer
       extend ActiveSupport::Concern
 
-      include Helpers::Constants
       include Helpers::Primitives
       include Helpers::RDFList
       include Helpers::Slices

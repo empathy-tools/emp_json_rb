@@ -29,17 +29,17 @@ module Empathy
           slice
         end
 
-        def resource_to_emp_json(slice, serialization_params, **options)
+        def resource_to_emp_json(slice, serialization_params, **options) # rubocop:disable Metrics/AbcSize
           return if options[:resource].blank? || retrieve_id(options[:resource]).is_a?(Proc)
 
-          if SUPPORTS_SEQUENCE && options[:resource].is_a?(SEQUENCE_CLASS)
+          if SUPPORTS_SEQUENCE && options[:resource].is_a?(LinkedRails::Sequence)
             add_sequence_to_slice(
               slice,
               serialization_params,
               **options
             )
-          elsif SUPPORTS_RDF_RB && options[:resource].is_a?(LIST_CLASS)
-            add_rdf_list_to_slice(slice, **options)
+          elsif SUPPORTS_RDF_RB && options[:resource].is_a?(RDF::List)
+            add_rdf_list_to_slice(slice, symbolize, **options)
           else
             if options[:serializer_class] == RDF::Serializers::ListSerializer
               raise("Trying to serialize mixed resources")

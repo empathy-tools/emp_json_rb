@@ -6,8 +6,26 @@ module Empathy
   module EmpJson
     module Helpers
       # Functions relating to serializing primitives.
-      module Primitives
-        include Constants
+      module Primitives # rubocop:disable Metrics/ModuleLength
+        EMP_TYPE_GLOBAL_ID = "id"
+        EMP_TYPE_LOCAL_ID = "lid"
+        EMP_TYPE_DATETIME = "dt"
+        EMP_TYPE_STRING = "s"
+        EMP_TYPE_BOOL = "b"
+        EMP_TYPE_INTEGER = "i"
+        EMP_TYPE_LONG = "l"
+        EMP_TYPE_PRIMITIVE = "p"
+        EMP_TYPE_LANGSTRING = "ls"
+
+        RDF_RDFV = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        RDF_RDFV_LANGSTRING = "#{RDF_RDFV}langString"
+        RDF_RDFS = "http://www.w3.org/2000/01/rdf-schema#"
+        RDF_XSD = "http://www.w3.org/2001/XMLSchema#"
+        RDF_XSD_TOKEN = "#{RDF_XSD}token"
+        RDF_XSD_STRING = "#{RDF_XSD}string"
+        RDF_XSD_DATETIME = "#{RDF_XSD}dateTime"
+        RDF_XSD_BOOLEAN = "#{RDF_XSD}boolean"
+        RDF_XSD_INTEGER = "#{RDF_XSD}integer"
 
         def object_to_value(value)
           return primitive_to_value(value.iri) if value.respond_to?(:iri)

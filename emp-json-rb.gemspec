@@ -3,7 +3,7 @@
 require_relative "lib/empathy/emp_json/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "emp-json"
+  spec.name = "emp_json"
   spec.version = Empathy::EmpJson::VERSION
   spec.authors = ["Thom van Kalkeren"]
   spec.email = ["thom@ontola.io"]
