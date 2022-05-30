@@ -3,21 +3,19 @@
 require "active_support"
 require "test_helper"
 require "rdf"
-require "empathy/emp_json/records"
-require "empathy/emp_json/primitives"
 
 module Empathy
   module EmpJson
-    class RecordsTest < Minitest::Test
-      include ::Empathy::EmpJson::Records
-      include ::Empathy::EmpJson::Primitives
+    class SlicesTest < Minitest::Test
+      include ::Empathy::EmpJson::Helpers::Slices
+      include ::Empathy::EmpJson::Helpers::Primitives
 
       Model = Struct.new(:iri)
 
       def test_record_id_handles_uri
         value = URI("https://example.com/bar")
 
-        assert_equal "https://example.com/bar", record_id(value)
+        assert_equal "https://example.com/bar", retrieve_id(value)
       end
 
       def test_create_record_initialises_global_id
@@ -29,7 +27,7 @@ module Empathy
             v: id.to_s
           }
         }
-        create_record(slice, Model.new(id))
+        add_record_to_slice(slice, Model.new(id))
 
         assert_equal exp, slice[id.to_s]
       end
@@ -43,7 +41,7 @@ module Empathy
             v: "_:#{id.id}"
           }
         }
-        create_record(slice, Model.new(id))
+        add_record_to_slice(slice, Model.new(id))
 
         assert_equal exp, slice[id.to_s]
       end

@@ -1,14 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "constants"
-require_relative "base"
-require_relative "inclusion"
-require_relative "records"
-require_relative "sequence"
-require_relative "rdf_list"
-require_relative "fields"
-require_relative "slices"
-require_relative "primitives"
+require_relative "serializer/fields"
+require_relative "serializer/inclusion"
+require_relative "serializer/records"
+require_relative "serializer/sequence"
+require_relative "serializer/serializing"
 
 module Empathy
   module EmpJson
@@ -16,15 +12,16 @@ module Empathy
     module Serializer
       extend ActiveSupport::Concern
 
-      include Constants
-      include Base
+      include Helpers::Constants
+      include Helpers::Primitives
+      include Helpers::RDFList
+      include Helpers::Slices
+      include Helpers::Values
+      include Fields
       include Inclusion
       include Records
       include Sequence
-      include RDFList
-      include Fields
-      include Slices
-      include Primitives
+      include Serializing
 
       included do
         attr_accessor :symbolize

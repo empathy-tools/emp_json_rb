@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "active_support/core_ext/hash/indifferent_access"
+
 module Empathy
   module EmpJson
     module Helpers
@@ -12,6 +14,19 @@ module Empathy
             .flat_map { |record| field_from_record(record, field) }
             .map { |values| normalise_slice_values(values) }
             .compact
+        end
+
+        def add_record_to_slice(slice, resource)
+          id = resource.is_a?(RDF::Resource) ? resource : retrieve_id(resource)
+          value = primitive_to_value(id)
+
+          unless slice_includes_record?(slice, resource)
+            slice[value[:v]] = {
+              "_id": value
+            }
+          end
+
+          value[:v]
         end
 
         # Returns a normalised fields array for a record from a slice.
@@ -40,8 +55,10 @@ module Empathy
           (record[field.to_s] || record[symbolized])&.compact
         end
 
-        def retrieve_id(id)
-          id.try(:iri) || id
+        def retrieve_id(resource)
+          return resource.to_s if resource.is_a?(URI) || resource.is_a?(RDF::URI)
+
+          resource.try(:iri) || resource.try(:subject) || resource.try(:id) || resource
         end
 
         def absolutized_id(id, website_iri = nil)
@@ -62,6 +79,10 @@ module Empathy
 
         def field_to_symbol(uri)
           (uri.fragment || uri.path.split("/").last).camelize(:lower)
+        end
+
+        def slice_includes_record?(slice, resource)
+          slice.key?(object_to_value(resource)[:v])
         end
       end
     end
