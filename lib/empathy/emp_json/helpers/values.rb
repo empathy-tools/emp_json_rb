@@ -8,7 +8,7 @@ module Empathy
         def add_attribute_to_record(slice, rid, key, value, symbolize)
           return if value.nil?
 
-          symbol = symbolize ? uri_to_symbol(key, symbolize) : key.to_s
+          symbol = uri_to_symbol(key, symbolize)
           emp_value = value_to_emp_value(value)
           current_value = slice[rid][symbol]
 
@@ -31,6 +31,8 @@ module Empathy
         end
 
         def uri_to_symbol(uri, symbolize)
+          return uri.to_s unless symbolize
+
           casing = symbolize == :class ? :upper : :lower
 
           (uri.fragment || uri.path.split("/").last).camelize(casing)
