@@ -6,11 +6,11 @@ A gem to serialize and manipulate [EmpJson](https://empathy.tools/specifications
 
 Install the gem and add to the application's Gemfile by executing:
 
-    $ bundle add emp-json-rb
+    $ bundle add emp_json_rb
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
-    $ gem install emp-json-rb
+    $ gem install emp_json_rb
 
 ## Usage
 
@@ -26,7 +26,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/empathy-tools/emp-json-rb. Contributors are expected to adhere to the [code of conduct](https://github.com/empathy-tools/emp-json-rb/blob/main/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/empathy-tools/emp_json_rb. Contributors are expected to adhere to the [code of conduct](https://github.com/empathy-tools/emp_json_rb/blob/main/CODE_OF_CONDUCT.md).
 
 ## License
 
