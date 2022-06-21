@@ -87,8 +87,7 @@ module Empathy
       def test_primitive_to_value_serializes_symbols
         value = :symbolName
         exp = {
-          type: "p",
-          dt: "http://www.w3.org/2001/XMLSchema#token",
+          type: "s",
           v: value.to_s
         }
         assert_equal exp, primitive_to_value(value)
@@ -198,6 +197,15 @@ module Empathy
         exp = {
           type: "s",
           v: "name"
+        }
+        assert_equal exp, primitive_to_value(value)
+      end
+
+      def test_primitive_to_value_serializes_rdf_symbol
+        value = RDF::Literal(:symbolName)
+        exp = {
+          type: "s",
+          v: "symbolName"
         }
         assert_equal exp, primitive_to_value(value)
       end

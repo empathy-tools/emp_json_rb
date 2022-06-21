@@ -6,7 +6,7 @@ module Empathy
   module EmpJson
     module Helpers
       # Functions relating to serializing primitives.
-      module Primitives # rubocop:disable Metrics/ModuleLength
+      module Primitives
         EMP_TYPE_GLOBAL_ID = "id"
         EMP_TYPE_LOCAL_ID = "lid"
         EMP_TYPE_DATETIME = "dt"
@@ -39,7 +39,7 @@ module Empathy
           shorthand(EMP_TYPE_LOCAL_ID, "_:#{value.id}")
         end
 
-        def primitive_to_value(value) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/AbcSize
+        def primitive_to_value(value) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
           throw_unknown_ruby_object(value) if value.nil?
 
           case value
@@ -49,12 +49,10 @@ module Empathy
             shorthand(EMP_TYPE_GLOBAL_ID, value.to_s)
           when DateTime, ActiveSupport::TimeWithZone
             shorthand(EMP_TYPE_DATETIME, value.iso8601)
-          when String
-            shorthand(EMP_TYPE_STRING, value)
+          when String, Symbol
+            shorthand(EMP_TYPE_STRING, value.to_s)
           when true, false
             shorthand(EMP_TYPE_BOOL, value.to_s)
-          when Symbol
-            primitive(RDF_XSD_TOKEN, value.to_s)
           when Integer
             integer_to_value(value)
           when Float, Numeric
@@ -85,7 +83,7 @@ module Empathy
               l: value.language.to_s,
               v: value.value
             }
-          when RDF_XSD_STRING
+          when RDF_XSD_STRING, RDF_XSD_TOKEN
             shorthand(EMP_TYPE_STRING, value.value)
           when RDF_XSD_DATETIME
             shorthand(EMP_TYPE_DATETIME, value.value)
