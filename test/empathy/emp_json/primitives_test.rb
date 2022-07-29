@@ -118,6 +118,15 @@ module Empathy
         assert_equal exp, primitive_to_value(value)
       end
 
+      def test_primitive_to_value_serializes_date
+        value = Date.parse("2022-01-01")
+        exp = {
+          type: "date",
+          v: "2022-01-01"
+        }
+        assert_equal exp, primitive_to_value(value)
+      end
+
       def test_primitive_to_value_serializes_datetime
         value = Time.find_zone!("UTC").parse("2022-01-01T12:34Z")
         exp = {
