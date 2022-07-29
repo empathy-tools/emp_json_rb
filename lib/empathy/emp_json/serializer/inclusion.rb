@@ -11,7 +11,7 @@ module Empathy
           when LinkedRails::Sequence
             collect_sequence_and_members(nested_resources, slice, resource, value, serialization_params)
           when RDF::List
-            nested_resources.push value unless value.subject == NS.rdfv.nil
+            nested_resources.push value unless value.subject == RDF::RDFV.nil
           when Array
             collect_array_members(nested_resources, slice, resource, value, serialization_params)
           else
