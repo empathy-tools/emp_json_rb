@@ -71,12 +71,6 @@ module Empathy
           values.is_a?(Array) ? values.map(&:with_indifferent_access) : values&.with_indifferent_access
         end
 
-        def expand(slice, website_iri = current_tenant)
-          return slice unless website_iri.present?
-
-          slice.transform_keys { |k| k.start_with?("/") ? website_iri + k : k }
-        end
-
         def field_to_symbol(uri)
           (uri.fragment || uri.path.split("/").last).camelize(:lower)
         end
