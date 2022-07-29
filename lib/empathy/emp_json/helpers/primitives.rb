@@ -6,9 +6,10 @@ module Empathy
   module EmpJson
     module Helpers
       # Functions relating to serializing primitives.
-      module Primitives
+      module Primitives # rubocop:disable Metrics/ModuleLength
         EMP_TYPE_GLOBAL_ID = "id"
         EMP_TYPE_LOCAL_ID = "lid"
+        EMP_TYPE_DATE = "date"
         EMP_TYPE_DATETIME = "dt"
         EMP_TYPE_STRING = "s"
         EMP_TYPE_BOOL = "b"
@@ -23,6 +24,7 @@ module Empathy
         RDF_XSD = "http://www.w3.org/2001/XMLSchema#"
         RDF_XSD_TOKEN = "#{RDF_XSD}token"
         RDF_XSD_STRING = "#{RDF_XSD}string"
+        RDF_XSD_DATE = "#{RDF_XSD}date"
         RDF_XSD_DATETIME = "#{RDF_XSD}dateTime"
         RDF_XSD_BOOLEAN = "#{RDF_XSD}boolean"
         RDF_XSD_INTEGER = "#{RDF_XSD}integer"
@@ -39,7 +41,7 @@ module Empathy
           shorthand(EMP_TYPE_LOCAL_ID, "_:#{value.id}")
         end
 
-        def primitive_to_value(value) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+        def primitive_to_value(value) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity
           throw_unknown_ruby_object(value) if value.nil?
 
           case value
@@ -49,6 +51,8 @@ module Empathy
             shorthand(EMP_TYPE_GLOBAL_ID, value.to_s)
           when DateTime, ActiveSupport::TimeWithZone
             shorthand(EMP_TYPE_DATETIME, value.iso8601)
+          when Date
+            shorthand(EMP_TYPE_DATE, value.iso8601)
           when String, Symbol
             shorthand(EMP_TYPE_STRING, value.to_s)
           when true, false
@@ -75,7 +79,7 @@ module Empathy
           end
         end
 
-        def rdf_literal_to_value(value)
+        def rdf_literal_to_value(value) # rubocop:disable Metrics/AbcSize
           case value.datatype.to_s
           when RDF_RDFV_LANGSTRING
             {
@@ -85,6 +89,8 @@ module Empathy
             }
           when RDF_XSD_STRING, RDF_XSD_TOKEN
             shorthand(EMP_TYPE_STRING, value.value)
+          when RDF_XSD_DATE
+            shorthand(EMP_TYPE_DATE, value.value)
           when RDF_XSD_DATETIME
             shorthand(EMP_TYPE_DATETIME, value.value)
           when RDF_XSD_BOOLEAN
