@@ -1,0 +1,11 @@
+module Empathy
+  module EmpJson
+    module Serializer
+      module Records
+        def serialize_record: (Helpers::Slices::slice slice, Serializing::serialization_params serialization_params, **Serializer::Serializing::emp_options options) -> untyped
+
+        def serialize_record_fields: (untyped serializer, Helpers::Slices::slice slice, untyped resource, untyped rid, Serializing::serialization_params serialization_params) -> untyped
+      end
+    end
+  end
+end

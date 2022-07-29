@@ -1,0 +1,33 @@
+module Empathy
+  module EmpJson
+    module Serializer
+      # extend ActiveSupport::Concern
+
+      include Helpers::Primitives
+
+      include Helpers::RDFList
+
+      include Helpers::Slices
+
+      include Helpers::Values
+
+      include Fields
+
+      include Inclusion
+
+      include Records
+
+      include Sequence
+
+      include Serializing
+
+      type symbolize = :class | bool
+
+      attr_accessor symbolize: symbolize
+
+      # def initialize: (untyped resource, ?::Hash[untyped, untyped] opts) -> void
+
+      def dump: (*untyped args, **untyped options) -> untyped
+    end
+  end
+end

@@ -1,0 +1,12 @@
+module Empathy
+  module EmpJson
+    SUPPORTS_RDF_RB: bool
+
+    SUPPORTS_SEQUENCE: bool
+
+    SUPPORTS_AR: bool
+
+    class Error < StandardError
+    end
+  end
+end

@@ -1,0 +1,15 @@
+module Empathy
+  module EmpJson
+    module Helpers
+      module Values
+        def add_attribute_to_record: (Slices::slice slice, untyped rid, untyped key, untyped value, Serializer::symbolize symbolize) -> (nil | untyped)
+
+        def wrap_relation_in_sequence: (untyped value, untyped resource) -> untyped
+
+        def uri_to_symbol: (untyped uri, Serializer::symbolize symbolize) -> untyped
+
+        def value_to_emp_value: (untyped value) -> untyped
+      end
+    end
+  end
+end

@@ -1,0 +1,15 @@
+module Empathy
+  module EmpJson
+    module Serializer
+      module Sequence
+        attr_accessor symbolize: Serializer::symbolize
+
+        def add_sequence_to_slice: (Helpers::Slices::slice slice, Serializing::serialization_params serialization_params, **Serializing::emp_options options) -> untyped
+
+        def process_sequence_members: (untyped serializer, Helpers::Slices::slice slice, untyped resource, untyped rid, Serializing::serialization_params serialization_params, **Serializing::emp_options options) -> untyped
+
+        def process_sequence_member: (untyped member, untyped index, untyped nested, untyped serializer, Helpers::Slices::slice slice, untyped resource, untyped rid, Serializing::serialization_params serialization_params) -> untyped
+      end
+    end
+  end
+end

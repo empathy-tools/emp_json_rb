@@ -1,0 +1,261 @@
+module RDF
+  module Value
+    def graph?: (*untyped args) -> false
+    def statement?: (*untyped args) -> false
+    def list?: -> false
+    def term?: (*untyped args) -> false
+    def resource?: -> false
+    def literal?: -> false
+    def node?: -> false
+    def iri?: -> false
+    def uri?: -> false
+    def variable?: (*untyped args) -> false
+    def constant?: -> true
+    def anonymous?: -> false
+    def valid?: -> true
+    def invalid?: -> bool
+    def validate!: -> Value
+    def start_with?: (String? string) -> bool
+    def canonicalize: -> untyped
+    def canonicalize!: -> Value
+    def to_rdf: -> Value
+    def to_term: -> Term
+    def inspect: -> untyped
+    def inspect!: -> untyped
+    def type_error: (untyped message) -> false
+  end
+
+  module Term
+    include Comparable
+    include Value
+
+    def <=>: (untyped other) -> untyped
+    def ==: (untyped other) -> bool
+    def eql?: (untyped other) -> untyped
+    def term?: (*untyped args) -> bool
+    def to_term: -> Term
+    def terms: -> [Term]
+    def to_base: -> untyped
+    def compatible?: (untyped other) -> false
+    def escape: (string string) -> untyped
+  end
+
+  module Resource
+    include Term
+
+    def self.new: (*untyped args) -> URI
+    def resource?: -> true
+  end
+
+  class Literal
+    TRUE: Literal
+    FALSE: Literal
+    ZERO: Literal
+
+    include RDF::Term
+
+    def self.inherited: (untyped child) -> untyped
+    def self.datatype_map: () -> untyped
+    def self.datatyped_class: (untyped uri) -> untyped
+    def self.new: (untyped value, ?language: untyped?, ?datatype: untyped?, ?lexical: untyped?, ?validate: bool, ?canonicalize: bool, **untyped options) -> untyped
+
+
+    attr_accessor language: untyped
+    attr_accessor datatype: untyped
+
+    def initialize: (untyped value, ?language: untyped?, ?datatype: untyped?, ?lexical: untyped?, ?validate: bool, ?canonicalize: bool, **untyped options) -> void
+    def value: () -> String?
+    def object: () -> untyped
+    def literal?: () -> true
+    def compatible?: (Literal other) -> bool
+    def hash: () -> Integer
+    def value_hash: () -> untyped
+    def freeze: () -> untyped
+    def eql?: (Literal other) -> bool
+    def ==: (Literal other) -> untyped
+    alias === ==
+    def <=>: (Literal other) -> untyped
+    def plain?: () -> bool
+    def simple?: () -> bool
+    def language?: () -> bool
+    alias has_language? language?
+    def datatype?: () -> bool
+    alias has_datatype? datatype?
+    alias typed? datatype?
+    alias datatyped? datatype?
+    def valid?: () -> bool
+    def validate!: () -> self
+    def comperable_datatype?: (Literal other) -> bool
+    def comperable_datatype2?: (Literal other) -> bool
+    def canonicalize!: () -> self
+    def squish: (*untyped other_string) -> untyped
+    def squish!: () -> self
+    def escape: (string string) -> untyped
+    def to_s: () -> String
+    def humanize: (?::Symbol lang) -> untyped
+    def inspect: () -> untyped
+    def method_missing: (untyped name, *untyped args) -> untyped
+    def respond_to_missing?: (untyped name, ?bool include_private) -> (true | untyped)
+  end
+
+  class URI
+    UCSCHAR: Regexp
+    IPRIVATE: Regexp
+    SCHEME: Regexp
+    PORT: Regexp
+    IP_literal: Regexp
+    PCT_ENCODED: Regexp
+    GEN_DELIMS: Regexp
+    SUB_DELIMS: Regexp
+    RESERVED: Regexp
+    UNRESERVED: Regexp
+    IUNRESERVED: Regexp
+    IPCHAR: Regexp
+    IQUERY: Regexp
+    IFRAGMENT: Regexp
+    ISEGMENT: Regexp
+    ISEGMENT_NZ: Regexp
+    ISEGMENT_NZ_NC: Regexp
+    IPATH_ABEMPTY: Regexp
+    IPATH_ABSOLUTE: Regexp
+    IPATH_NOSCHEME: Regexp
+    IPATH_ROOTLESS: Regexp
+    IPATH_EMPTY: Regexp
+    IREG_NAME: Regexp
+    IHOST: Regexp
+    IUSERINFO: Regexp
+    IAUTHORITY: Regexp
+    IRELATIVE_PART: Regexp
+    IRELATIVE_REF: Regexp
+    IHIER_PART: Regexp
+    IRI: Regexp
+    IRI_PARTS: Regexp
+    RDS_2A: Regexp
+    RDS_2B1: Regexp
+    RDS_2B2: Regexp
+    RDS_2C1: Regexp
+    RDS_2C2: Regexp
+    RDS_2D: Regexp
+    RDS_2E: Regexp
+    PORT_MAPPING: Hash[String, Integer]
+    NON_HIER_SCHEMES: [String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String]
+    PN_ESCAPE_CHARS: Regexp
+    PN_ESCAPES: Regexp
+    HOST_FROM_AUTHORITY_RE: Regexp
+    PORT_FROM_AUTHORITY_RE: Regexp
+    include Resource
+    @hash: Integer?
+    @object: {scheme: nil, authority: String?, userinfo: nil, user: String?, password: String?, host: nil, port: nil, path: String?, query: nil, fragment: nil}?
+    @value: String?
+    @mutex: Thread::Mutex
+    self.@cache: untyped
+
+    def self.cache: -> untyped
+    def self.intern: (String str, *untyped args, **untyped) -> URI
+    def self.parse: (untyped str) -> URI
+    def self.normalize_path: (String? path) -> String
+    def initialize: (*String? args, ?validate: (String | false)?, ?canonicalize: (String | false)?, **String?) -> void
+    def uri?: -> true
+    def urn?: -> bool
+    def hier?: -> bool
+    def url?: -> bool
+    def absolute?: -> bool
+    def relative?: -> bool
+    def relativize: (untyped base_uri) -> (String | URI)
+    def length: -> Integer
+    def valid?: -> false
+    def validate!: -> URI
+    def canonicalize: -> URI
+    def canonicalize!: -> URI
+    def join: (*untyped uris) -> URI
+    def /: (untyped fragment) -> URI
+    def +: (untyped other) -> URI
+    def root?: -> bool
+    def root: -> URI
+    def parent?: -> bool
+    def parent: -> URI?
+    def qname: (?prefixes: nil) -> [:rdf, Symbol?]?
+    def pname: (?prefixes: nil) -> String
+    def dup: -> URI
+    def freeze: -> URI
+    def end_with?: (string string) -> bool
+    def eql?: (untyped other) -> bool
+    def ==: (untyped other) -> bool
+    def ===: (untyped other) -> bool
+    def =~: (untyped pattern) -> ((Integer | bool)?)
+    def to_uri: -> URI
+    def to_str: -> String?
+    def inspect: -> String
+    def value: -> String?
+    def hash: -> Integer
+    def object: -> {scheme: nil, authority: String?, userinfo: nil, user: String?, password: String?, host: nil, port: nil, path: String?, query: nil, fragment: nil}
+    def parse: (String? value) -> {scheme: nil, authority: nil, userinfo: nil, user: String?, password: String?, host: nil, port: nil, path: String?, query: nil, fragment: nil}
+    def scheme: -> String?
+    def scheme=: (untyped value) -> URI
+    def normalized_scheme: -> nil
+    def user: -> String?
+    def user=: (untyped value) -> URI
+    def normalized_user: -> nil
+    def password: -> String?
+    def password=: (untyped value) -> URI
+    def normalized_password: -> nil
+    def host: -> String?
+    def host=: (untyped value) -> URI
+    def normalized_host: -> nil
+    def port: -> String?
+    def port=: (untyped value) -> URI
+    def normalized_port: -> Integer?
+    def path: -> String?
+    def path=: (String value) -> URI
+    def normalized_path: -> nil
+    def query: -> String?
+    def query=: (nil value) -> URI
+    def normalized_query: -> nil
+    def fragment: -> String?
+    def fragment=: (untyped value) -> URI
+    def normalized_fragment: -> nil
+    def authority: -> String?
+    def authority=: (untyped value) -> URI
+    def normalized_authority: -> String?
+    def userinfo: -> String?
+    def userinfo=: (untyped value) -> URI
+    def normalized_userinfo: -> nil
+    def query_values: (?singleton(Hash) return_type) -> ((Array[Array[nil]?] | Hash[untyped, Array[nil]?])?)
+    def query_values=: (untyped value) -> nil
+    def request_uri: -> String?
+    def _dump: (untyped level) -> String?
+    def self._load: (untyped data) -> URI
+
+    private
+    def normalize_segment: (String? value, untyped expr, ?bool downcase) -> nil
+    def format_userinfo: (?String append) -> String
+    def format_authority: -> String
+    def self.encode: (untyped str, Regexp expr) -> untyped
+    def self.decode: (untyped str) -> untyped
+  end
+
+  class Node
+    include RDF::Resource
+    attr_accessor original: untyped
+    attr_accessor id: untyped
+
+    def self.cache: () -> untyped
+    def self.uuid: (?format: ::Symbol) -> untyped
+    def self.intern: (untyped id) -> untyped
+
+    def dup: () -> Node
+    def initialize: (?untyped? id) -> void
+    def node?: () -> true
+    def anonymous?: () -> true
+    alias unlabeled? anonymous?
+    def labeled?: () -> bool
+    def hash: () -> Integer
+    def eql?: (Node other) -> bool
+    def ==: (Node other) -> untyped
+    alias === ==
+    def to_unique_base: () -> (untyped | ::String)
+    def make_unique!: () -> self
+    def to_s: () -> String
+    def to_sym: () -> untyped
+  end
+end

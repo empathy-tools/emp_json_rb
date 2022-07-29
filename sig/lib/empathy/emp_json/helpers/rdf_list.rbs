@@ -1,0 +1,11 @@
+module Empathy
+  module EmpJson
+    module Helpers
+      module RDFList
+        def add_rdf_list_to_slice: (Slices::slice slice, Serializer::symbolize symbolize, **Serializer::Serializing::emp_options options) -> void
+
+        def list_item_to_record: (Slices::slice slice, untyped elem, Serializer::symbolize symbolize) -> void
+      end
+    end
+  end
+end
