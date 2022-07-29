@@ -1,0 +1,23 @@
+module Empathy
+  module EmpJson
+    module Serializer
+      module Fields
+        def serialize_attributes_to_record: (untyped serializer, Helpers::Slices::slice slice, untyped resource, untyped rid, Serializing::serialization_params serialization_params) -> (::Array[untyped] | untyped)
+
+        def serialize_statements: (untyped serializer, Helpers::Slices::slice slice, untyped resource, Serializing::serialization_params serialization_params) -> untyped
+
+        def serialize_relations_to_record: (untyped serializer, Helpers::Slices::slice slice, untyped resource, untyped rid, Serializing::serialization_params serialization_params) -> (::Array[untyped] | untyped)
+
+        def value_for_attribute: (untyped attr, untyped resource, Serializing::serialization_params serialization_params) -> untyped
+
+        def value_for_relation: (untyped relation, untyped resource, Serializing::serialization_params serialization_params) -> (nil | untyped)
+
+        def unpack_relation_value: (untyped relation, untyped resource, Serializing::serialization_params serialization_params) -> untyped
+
+        def unpack_statement: (untyped statement) -> ::Array[untyped]
+
+        def predicate_to_symbol: (untyped attr) -> untyped
+      end
+    end
+  end
+end

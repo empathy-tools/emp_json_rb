@@ -16,3 +16,5 @@ gem "activemodel", "~> 7"
 gem "activesupport", "~> 7"
 
 gem "rdf"
+
+gem "rbs"

@@ -1,0 +1,11 @@
+module Empathy
+  module EmpJson
+    module Helpers
+      module Parsing
+        def emp_to_primitive: (Primitives::shorthand | Primitives::primitive emp_value) -> (RDF::URI | RDF::Node | RDF::Literal | Date | Time | bool | Numeric | String)
+
+        def use_rdf_rb_for_parsing: (string value, string datatype) -> untyped
+      end
+    end
+  end
+end

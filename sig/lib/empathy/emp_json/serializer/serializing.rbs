@@ -1,0 +1,18 @@
+module Empathy
+  module EmpJson
+    module Serializer
+      module Serializing
+        type serialization_params = Hash[string, untyped]
+        type emp_options = {includes: untyped?, resource: untyped?, serializer_class: untyped?}
+
+        def render_emp_json: (?untyped resource) -> string
+
+        def emp_json_hash: (?untyped _resource) -> Helpers::Slices::slice
+
+        def create_slice: (untyped resources) -> Helpers::Slices::slice
+
+        def resource_to_emp_json: (Helpers::Slices::slice slice, serialization_params serialization_params, **emp_options options) -> void
+      end
+    end
+  end
+end

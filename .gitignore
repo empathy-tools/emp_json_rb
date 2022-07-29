@@ -9,3 +9,4 @@
 *.gem
 .tool-versions
 .idea/*
+/.gem_rbs_collection/

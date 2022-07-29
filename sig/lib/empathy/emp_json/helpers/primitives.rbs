@@ -1,0 +1,70 @@
+module Empathy
+  module EmpJson
+    module Helpers
+      module Primitives
+        EMP_TYPE_GLOBAL_ID: "id"
+
+        EMP_TYPE_LOCAL_ID: "lid"
+
+        EMP_TYPE_DATE: "date"
+
+        EMP_TYPE_DATETIME: "dt"
+
+        EMP_TYPE_STRING: "s"
+
+        EMP_TYPE_BOOL: "b"
+
+        EMP_TYPE_INTEGER: "i"
+
+        EMP_TYPE_LONG: "l"
+
+        EMP_TYPE_PRIMITIVE: "p"
+
+        EMP_TYPE_LANGSTRING: "ls"
+
+        RDF_RDFV: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+
+        RDF_RDFV_LANGSTRING: "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString"
+
+        RDF_RDFS: "http://www.w3.org/2000/01/rdf-schema#"
+
+        RDF_XSD: "http://www.w3.org/2001/XMLSchema#"
+
+        RDF_XSD_TOKEN: "http://www.w3.org/2001/XMLSchema#token"
+
+        RDF_XSD_STRING: "http://www.w3.org/2001/XMLSchema#string"
+
+        RDF_XSD_DATE: "http://www.w3.org/2001/XMLSchema#date"
+
+        RDF_XSD_DATETIME: "http://www.w3.org/2001/XMLSchema#datetime"
+
+        RDF_XSD_BOOLEAN: "http://www.w3.org/2001/XMLSchema#boolean"
+
+        RDF_XSD_INTEGER: "http://www.w3.org/2001/XMLSchema#integer"
+
+        type shorthand = { type: string, v: string }
+        type primitive = { type: string, dt: string, v: string }
+
+        def serialize_emp: (Hash[untyped, untyped] hash) -> Slices::slice
+
+        def object_to_value: (untyped value) -> shorthand
+
+        def node_to_local_id: (untyped value) -> shorthand
+
+        def primitive_to_value: (untyped value) -> shorthand
+
+        def integer_to_value: (Integer value) -> shorthand
+
+        def rdf_literal_to_value: (untyped value) -> shorthand
+
+        def use_rdf_rb_for_primitive: (untyped value) -> primitive
+
+        def shorthand: (string `type`, string value) -> shorthand
+
+        def primitive: (untyped datatype, untyped value) -> primitive
+
+        def throw_unknown_ruby_object: (untyped value) -> untyped
+      end
+    end
+  end
+end

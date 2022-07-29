@@ -1,0 +1,19 @@
+module Empathy
+  module EmpJson
+    module Serializer
+      module Inclusion
+        def collect_nested_resources: (untyped nested_resources, Helpers::Slices::slice slice, untyped resource, untyped value, Serializing::serialization_params serialization_params) -> untyped
+
+        def collect_sequence_and_members: (untyped nested_resources, Helpers::Slices::slice slice, untyped resource, untyped value, Serializing::serialization_params serialization_params) -> untyped
+
+        def collect_array_members: (untyped nested_resources, Helpers::Slices::slice slice, untyped resource, untyped value, Serializing::serialization_params serialization_params) -> untyped
+
+        def blank_value?: (untyped value) -> untyped
+
+        def nested_resource?: (untyped resource, untyped value) -> untyped
+
+        def process_includes: (Helpers::Slices::slice slice, Serializing::serialization_params serialization_params, **Serializer::Serializing::emp_options options) -> untyped
+      end
+    end
+  end
+end

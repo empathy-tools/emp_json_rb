@@ -1,0 +1,33 @@
+module Empathy
+  module EmpJson
+    module Helpers
+      module Slices
+        type record = Hash[string | Symbol, Primitives::shorthand | Primitives::primitive]
+        type slice = Hash[string | Symbol, record]
+        type id = String | RDF::URI
+
+        def all_values_from_slice: (slice slice, id field, ?untyped? _website_iri) -> untyped
+
+        def add_record_to_slice: (slice slice, untyped resource) -> untyped
+
+        def values_from_slice: (slice slice, untyped id, id field, ?untyped? website_iri) -> untyped
+
+        def field_from_slice: (slice slice, untyped id, id field, ?untyped? website_iri) -> (nil | untyped)
+
+        def record_from_slice: (slice slice, untyped id, ?untyped? website_iri) -> untyped
+
+        def field_from_record: (untyped record, id field) -> untyped
+
+        def retrieve_id: (untyped resource) -> untyped
+
+        def absolutized_id: (untyped id, ?untyped? website_iri) -> untyped
+
+        def normalise_slice_values: (untyped values) -> untyped
+
+        def field_to_symbol: (untyped uri) -> untyped
+
+        def slice_includes_record?: (slice slice, untyped resource) -> untyped
+      end
+    end
+  end
+end
