@@ -56,7 +56,7 @@ module Empathy
         end
 
         def retrieve_id(resource)
-          return resource.to_s if resource.is_a?(URI) || resource.is_a?(RDF::URI)
+          return resource.to_s if resource.is_a?(URI) || resource.is_a?(RDF::URI) || resource.is_a?(RDF::Node)
 
           resource.try(:iri) || resource.try(:subject) || resource.try(:id) || resource
         end
