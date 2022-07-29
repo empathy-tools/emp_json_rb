@@ -5,6 +5,7 @@ require "empathy/emp_json/helpers/rdf_list"
 require "empathy/emp_json/helpers/slices"
 require "empathy/emp_json/helpers/values"
 require "empathy/emp_json/helpers/parsing"
+require "empathy/emp_json/helpers/hash"
 require "empathy/emp_json/serializer"
 
 module Empathy
