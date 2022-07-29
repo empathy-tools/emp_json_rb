@@ -10,18 +10,18 @@ module Empathy
           loop do
             list_item_to_record(slice, elem, symbolize)
 
-            break if elem.rest_subject == NS.rdfv.nil
+            break if elem.rest_subject == RDF::RDFV.nil
 
             elem = elem.rest
           end
         end
 
-        def list_item_to_record(slice, elem, symbolize) # rubocop:disable Metrics/AbcSize
+        def list_item_to_record(slice, elem, symbolize)
           rid = add_record_to_slice(slice, elem)
-          add_attribute_to_record(slice, rid, NS.rdfv.type, NS.rdfv.List, symbolize)
+          add_attribute_to_record(slice, rid, RDF::RDFV.type, RDF::RDFV.List, symbolize)
           first = elem.first.is_a?(RDF::Term) ? elem.first : retrieve_id(elem.first)
-          add_attribute_to_record(slice, rid, NS.rdfv.first, first, symbolize)
-          add_attribute_to_record(slice, rid, NS.rdfv.rest, elem.rest_subject, symbolize)
+          add_attribute_to_record(slice, rid, RDF::RDFV.first, first, symbolize)
+          add_attribute_to_record(slice, rid, RDF::RDFV.rest, elem.rest_subject, symbolize)
         end
       end
     end
