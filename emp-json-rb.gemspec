@@ -3,8 +3,11 @@
 require_relative "lib/empathy/emp_json/version"
 
 Gem::Specification.new do |spec|
+  prerelease = ENV.fetch("PUBLISH_PRERELEASE", false)
+  env_version = ENV.fetch("GITHUB_SHA", "")[0..8]
+
   spec.name = "emp_json"
-  spec.version = Empathy::EmpJson::VERSION
+  spec.version = prerelease ? "#{Empathy::EmpJson::VERSION}-g#{env_version}" : Empathy::EmpJson::VERSION
   spec.authors = ["Thom van Kalkeren"]
   spec.email = ["thom@ontola.io"]
 
