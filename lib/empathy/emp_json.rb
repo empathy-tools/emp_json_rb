@@ -10,9 +10,21 @@ require "empathy/emp_json/serializer"
 
 module Empathy
   module EmpJson
-    SUPPORTS_RDF_RB = Object.const_defined?("RDF")
-    SUPPORTS_SEQUENCE = Object.const_defined?("LinkedRails")
-    SUPPORTS_AR = Object.const_defined?("ActiveRecord")
+    # Class for checking if certain gems are present
+    class SupportChecker
+      class << self
+        def check(gem)
+          require gem
+          true
+        rescue LoadError
+          false
+        end
+      end
+    end
+
+    SUPPORTS_RDF_RB = SupportChecker.check("rdf")
+    SUPPORTS_SEQUENCE = SupportChecker.check("linked_rails")
+    SUPPORTS_AR = SupportChecker.check("active_record")
 
     class Error < StandardError; end
   end
