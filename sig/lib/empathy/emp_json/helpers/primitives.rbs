@@ -16,6 +16,8 @@ module Empathy
 
         EMP_TYPE_INTEGER: "i"
 
+        EMP_TYPE_DOUBLE: "d"
+
         EMP_TYPE_LONG: "l"
 
         EMP_TYPE_PRIMITIVE: "p"
@@ -41,6 +43,12 @@ module Empathy
         RDF_XSD_BOOLEAN: "http://www.w3.org/2001/XMLSchema#boolean"
 
         RDF_XSD_INTEGER: "http://www.w3.org/2001/XMLSchema#integer"
+
+        RDF_XSD_FLOAT: "http://www.w3.org/2001/XMLSchema#float"
+
+        RDF_XSD_DOUBLE: "http://www.w3.org/2001/XMLSchema#double"
+
+        RDF_XSD_DECIMAL: "http://www.w3.org/2001/XMLSchema#decimal"
 
         type shorthand = { type: string, v: string }
         type primitive = { type: string, dt: string, v: string }

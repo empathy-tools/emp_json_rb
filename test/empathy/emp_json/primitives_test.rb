@@ -184,8 +184,7 @@ module Empathy
 
         float = 3.2
         exp = {
-          type: "p",
-          dt: "http://www.w3.org/2001/XMLSchema#double",
+          type: "d",
           v: "3.2"
         }
         assert_equal exp, primitive_to_value(float)
@@ -215,6 +214,35 @@ module Empathy
         exp = {
           type: "s",
           v: "symbolName"
+        }
+        assert_equal exp, primitive_to_value(value)
+      end
+
+      def test_primitive_to_value_serializes_rdf_double
+        value = RDF::Literal(0.1)
+        exp = {
+          type: "d",
+          v: "0.1"
+        }
+        assert_equal exp, primitive_to_value(value)
+      end
+
+      def test_primitive_to_value_serializes_rdf_decimal
+        value = RDF::Literal::Decimal.new(0.1)
+        exp = {
+          type: "p",
+          dt: "http://www.w3.org/2001/XMLSchema#decimal",
+          v: "0.1"
+        }
+        assert_equal exp, primitive_to_value(value)
+      end
+
+      def test_primitive_to_value_serializes_rdf_float
+        value = RDF::Literal.new(0.1, datatype: "http://www.w3.org/2001/XMLSchema#float")
+        exp = {
+          type: "p",
+          dt: "http://www.w3.org/2001/XMLSchema#float",
+          v: "0.1"
         }
         assert_equal exp, primitive_to_value(value)
       end
