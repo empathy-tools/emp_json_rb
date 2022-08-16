@@ -14,6 +14,7 @@ module Empathy
         EMP_TYPE_STRING = "s"
         EMP_TYPE_BOOL = "b"
         EMP_TYPE_INTEGER = "i"
+        EMP_TYPE_DOUBLE = "d"
         EMP_TYPE_LONG = "l"
         EMP_TYPE_PRIMITIVE = "p"
         EMP_TYPE_LANGSTRING = "ls"
@@ -28,6 +29,9 @@ module Empathy
         RDF_XSD_DATETIME = "#{RDF_XSD}dateTime"
         RDF_XSD_BOOLEAN = "#{RDF_XSD}boolean"
         RDF_XSD_INTEGER = "#{RDF_XSD}integer"
+        RDF_XSD_FLOAT = "#{RDF_XSD}float"
+        RDF_XSD_DOUBLE = "#{RDF_XSD}double"
+        RDF_XSD_DECIMAL = "#{RDF_XSD}decimal"
 
         def object_to_value(value)
           return primitive_to_value(value.iri) if value.respond_to?(:iri)
@@ -59,7 +63,9 @@ module Empathy
             shorthand(EMP_TYPE_BOOL, value.to_s)
           when Integer
             integer_to_value(value)
-          when Float, Numeric
+          when Float
+            shorthand(EMP_TYPE_DOUBLE, value.to_s)
+          when Numeric
             use_rdf_rb_for_primitive(value)
           when RDF::Literal
             rdf_literal_to_value(value)
@@ -79,7 +85,7 @@ module Empathy
           end
         end
 
-        def rdf_literal_to_value(value) # rubocop:disable Metrics/AbcSize
+        def rdf_literal_to_value(value) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
           case value.datatype.to_s
           when RDF_RDFV_LANGSTRING
             {
@@ -95,10 +101,14 @@ module Empathy
             shorthand(EMP_TYPE_DATETIME, value.value)
           when RDF_XSD_BOOLEAN
             shorthand(EMP_TYPE_BOOL, value.value)
+          when RDF_XSD_DOUBLE
+            shorthand(EMP_TYPE_DOUBLE, value.value)
+          when RDF_XSD_DECIMAL, RDF_XSD_FLOAT
+            primitive(value.datatype.to_s, value.value)
           when RDF_XSD_INTEGER
             integer_to_value(value.to_i)
           else
-            throw "unknown RDF::Literal"
+            throw "unknown RDF::Literal: #{value.datatype}"
           end
         end
 
