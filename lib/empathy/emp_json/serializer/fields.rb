@@ -58,7 +58,7 @@ module Empathy
         end
 
         def value_for_attribute(attr, resource, serialization_params)
-          return resource.try(attr.method) if attr.method.is_a?(Symbol)
+          return resource.try(attr.method) if attr.method.is_a?(Symbol) || attr.method.is_a?(String)
 
           FastJsonapi.call_proc(attr.method, resource, serialization_params)
         end
