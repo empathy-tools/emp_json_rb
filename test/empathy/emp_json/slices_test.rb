@@ -13,9 +13,17 @@ module Empathy
       Model = Struct.new(:iri)
 
       def test_record_id_handles_uri
-        value = URI("https://example.com/bar")
+        id = URI("https://example.com/foo")
+        slice = {}
+        exp = {
+          _id: {
+            type: "id",
+            v: id.to_s
+          }
+        }
+        add_record_to_slice(slice, URI("https://example.com/foo"))
 
-        assert_equal "https://example.com/bar", retrieve_id(value)
+        assert_equal exp, slice[id.to_s]
       end
 
       def test_create_record_initialises_global_id

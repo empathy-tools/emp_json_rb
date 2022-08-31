@@ -46,7 +46,7 @@ module Empathy
 
         # Returns a record from a slice.
         def record_from_slice(slice, id, website_iri = nil)
-          slice[absolutized_id(retrieve_id(id), website_iri)] || slice[retrieve_id(id)]
+          slice[absolutized_id(retrieve_id_string(id), website_iri)] || slice[retrieve_id_string(id)]
         end
 
         def field_from_record(record, field)
@@ -56,15 +56,19 @@ module Empathy
         end
 
         def retrieve_id(resource)
-          return resource.to_s if resource.is_a?(URI) || resource.is_a?(RDF::URI) || resource.is_a?(RDF::Node)
+          return resource if resource.is_a?(URI) || resource.is_a?(RDF::URI) || resource.is_a?(RDF::Node)
 
           resource.try(:iri) || resource.try(:subject) || resource.try(:id) || resource
         end
 
-        def absolutized_id(id, website_iri = nil)
-          return id.to_s.delete_prefix(website_iri) if website_iri.present?
+        def retrieve_id_string(resource)
+          retrieve_id(resource).to_s
+        end
 
-          id.to_s
+        def absolutized_id(id, website_iri = nil)
+          return id.delete_prefix(website_iri) if website_iri.present?
+
+          id
         end
 
         def normalise_slice_values(values)
